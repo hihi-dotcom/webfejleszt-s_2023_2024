@@ -1,36 +1,11 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <title>ALPINE JS</title>
+    <title>Document</title>
 </head>
 <body>
-    <div 
-        x-data="{ 
-            search: '',
-
-            items: ['foo', 'bar', 'baz'],
-
-            get filteredItems() {
-                return this.items.filter(
-                    i => i.startsWith(this.search)
-                )
-            }
-
-
-        }"
-    >
-
-        <input x-model="search" placeholder="Search...">
-
-        <ul>
-            <template x-for="item in filteredItems" :key="item">
-                <li x-text="item"></li>
-            </template>
-        </ul>
-
-    </div>
+    <script src="main.js"></script>
 </body>
 </html>
