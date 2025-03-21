@@ -53,8 +53,15 @@ class AnswerArea extends Area{
     /**
      * 
      * @param {string} osztalystring 
+     * @param {Manager} manager
+     * 
      */
-    constructor(osztalystring){
+    constructor(osztalystring, manager){
         super(osztalystring);
+        
+        manager.setNextAnswerCallback(()=>{
+            div_1.innerHTML = "";
+        });
+        
     };
 };

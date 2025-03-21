@@ -1,3 +1,8 @@
+/**
+ * @callback nextQuestionCallback
+ * @callback nextanswersCallback
+ * @callback finischCallback
+ */
 class Manager{
 
     /**
@@ -16,15 +21,18 @@ class Manager{
     #selectedAnswer;
 
     /**
-     * @type {string[]:void}
+     * @type {nextQuestionCallback}
      */
     #nextquestioncallback;
 
     /**
-     * @type {string[]:void}
+     * @type {nextanswersCallback}
      */
     #nextanswerscallback;
 
+    /**
+     * @type {finischCallback}
+    */
     #finishCallback;
 
     /**
@@ -82,7 +90,7 @@ class Manager{
     };
 
     start(){
-        this.#nextquestioncallback(this.#array[this.#currentQuestion]);
-        this.#nextanswerscallback(this.#array[this.#currentQuestion]);
+        this.#nextquestioncallback(this.#array[this.#currentQuestion].questionText);
+        this.#nextanswerscallback(this.#array[this.#currentQuestion].answers);
     };
 };
