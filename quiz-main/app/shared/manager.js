@@ -12,6 +12,11 @@
  * 
  * 
  * @callback FinishCallback //ez fogja felépíteni majd az eredménykijelzést
+ * 
+ * 
+ * @param {Question}//az AddCallback bemeneti paramétere
+ * @callback AddCallBack //definiáltuk az AddCallBack típust
+ * @returns {void}// az AddCallBack visszatérése
  */
 
 
@@ -48,6 +53,9 @@ class Manager{
      */
     #finishCallback;
 
+    /**
+     * @type {AddCallBack} definiáltam egy privát tulajdonságot az AddCallbacknek
+     */
     #addCallback;
 
     /**
@@ -60,7 +68,7 @@ class Manager{
         this.#array = array;
         this.#currentQuestionNumber = 0;
         this.#selectedAnswer={};
-        this.#addCallback = ()=>{};
+        this.#addCallback = ()=>{};//Mivel az addCallbackhez tartozó setelő függvényt nem mindig valósítjuk meg, ezért a constructorban értékül adunk neki egy üres arrow functiont
     }
 
     //Létrehoztunk elsőkörben 3 callback settert,ami beállítja a callbackeket
@@ -77,12 +85,21 @@ class Manager{
     }
 
     setAddCallback(callback){
+        //definiáltunk egy publikus függvényt a Manager osztályunknak, amely beállítja a privát addCallback tulajdonság értékét
         this.#addCallback = callback;
     }
 
+    //Létrehoztunk a Manager osztálynak egy új add függvényt, amely egy Question típusú paramétert vár és void a visszatérése
+
+    /**
+     * 
+     * @param {Question} question
+     * 
+     * @returns {void} 
+     */
     add(question){
-        this.#array.push(question);
-        this.#addCallback(question);
+        this.#array.push(question);//a függvénytörzsben hozzáfűzzük a paraméterként kapott új elemet az array privát tulajdonságunkhoz
+        this.#addCallback(question);//meghívtuk az add függvényben a most létrehozott addCallBackünket, a question paraméterünkkel
     }
 
     /**illetve létrehoztunk egy nextQuestion függvényt is a Managernek, ennek 1 paramétere van egy answer, ami string
@@ -109,12 +126,12 @@ class Manager{
         }
     }
 
-    generateExportString(){
-        let result = [];
-        for(const question of this.#array){
-            result.push(`${question.questionText};${question.answers.join(';')};${question.rightAnswer}`)
+    generateExportString(){//definiáltunk egy publikus függvényt a Manager osztályunknak
+        let result = [];//deklarálok egy üres tömböt
+        for(const question of this.#array){//végigiterálunk az array privát tulajdonságunkban levő tömbön egy for ofal
+            result.push(`${question.questionText};${question.answers.join(';')};${question.rightAnswer}`); //minden egyes elemből létre hozunk egy ;-kel elválaszott sort, és ezt pusholjuk a result tömbünke, amit a függvény elején deklaráltunk
         }
-        return result.join('\n');
+        return result.join('\n');//majd minden egyes példány után beillesztünk egy sörtörést is, amivel visszatérünk
     }
 
     start(){//definiáltunk egy start függvényt is Manager osztálynak
